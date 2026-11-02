@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GeraiPi Indonesia · Marketplace Pi Coin</title>
+  <meta name="description" content="GeraiPi Indonesia adalah marketplace P2App dengan Pi Coin dan pembayaran rupiah, dibangun di atas kepercayaan komunitas Pioneer Indonesia.">
+  <meta name="theme-color" content="#f59e0b">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23f59e0b'/><text x='50' y='64' font-size='46' text-anchor='middle' fill='white' font-family='Georgia,serif' font-weight='700'>π</text></svg>">
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --surface: #ffffff;
+      --ink: #1c1917;
+      --muted: #57534e;
+      --line: #e7e5e4;
+      --amber: #f59e0b;
+      --orange: #ea580c;
+      --emerald: #059669;
+      --radius: 20px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c0a09;
+        --surface: #1c1917;
+        --ink: #fafaf9;
+        --muted: #a8a29e;
+        --line: #292524;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .serif { font-family: "Georgia", "Times New Roman", serif; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: saturate(160%) blur(12px);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; color: var(--ink); letter-spacing: -0.01em; }
+    .mark {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--amber), var(--orange));
+      display: grid; place-items: center; color: #fff; font-family: Georgia, serif; font-weight: 700; font-size: 18px;
+      box-shadow: 0 6px 16px -6px rgba(234, 88, 12, .6);
+    }
+    nav a { color: var(--muted); text-decoration: none; font-size: 14px; margin-left: 22px; }
+    nav a:hover { color: var(--ink); }
+
+    .hero { padding: 96px 0 72px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: -20% -10% auto; height: 520px; z-index: -1;
+      background: radial-gradient(closest-side, color-mix(in srgb, var(--amber) 22%, transparent), transparent 70%);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px;
+      font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+      background: var(--surface);
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(40px, 6.4vw, 72px); line-height: 1.05; letter-spacing: -0.02em;
+      margin: 26px auto 22px; max-width: 16ch;
+    }
+    h1 em { font-style: italic; background: linear-gradient(90deg, var(--amber), var(--orange)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lead { font-size: clamp(17px, 2vw, 20px); color: var(--muted); max-width: 58ch; margin: 0 auto; }
+    .cta { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 14px;
+      font-weight: 600; font-size: 15px; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-ghost { border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
+
+    section { padding: 88px 0; border-top: 1px solid var(--line); }
+    .label { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); }
+    h2 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; letter-spacing: -0.015em; margin: 12px 0 16px; }
+    .sub { color: var(--muted); max-width: 60ch; }
+
+    .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 44px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 28px; transition: border-color .2s ease, transform .2s ease;
+    }
+    .card:hover { border-color: color-mix(in srgb, var(--amber) 55%, var(--line)); transform: translateY(-2px); }
+    .icon {
+      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 18px;
+      background: color-mix(in srgb, var(--amber) 14%, transparent); color: var(--orange); font-size: 20px;
+    }
+    .card h3 { font-size: 17px; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .card p { color: var(--muted); font-size: 15px; }
+
+    .split { display: grid; gap: 48px; grid-template-columns: 1fr 1fr; align-items: center; }
+    .steps { list-style: none; counter-reset: s; margin-top: 8px; }
+    .steps li {
+      counter-increment: s; display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px dashed var(--line);
+    }
+    .steps li:last-child { border-bottom: 0; }
+    .steps li::before {
+      content: counter(s); flex: 0 0 34px; height: 34px; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 700; font-size: 14px;
+      background: var(--ink); color: var(--bg);
+    }
+    .steps strong { display: block; margin-bottom: 2px; }
+    .steps span { color: var(--muted); font-size: 15px; }
+
+    .quote {
+      border-radius: 28px; padding: 56px 40px; text-align: center; color: #fff;
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 60%, #c2410c 100%);
+      box-shadow: 0 30px 60px -30px rgba(234, 88, 12, .55);
+    }
+    .quote p { font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); line-height: 1.35; max-width: 34ch; margin: 0 auto; }
+    .quote small { display: block; margin-top: 18px; opacity: .85; font-size: 14px; letter-spacing: .04em; }
+
+    footer { border-top: 1px solid var(--line); padding: 36px 0; color: var(--muted); font-size: 14px; }
+    .foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
+    footer a { color: var(--muted); }
+
+    .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+    .js .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .js .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    @media (max-width: 760px) {
+      nav a { display: none; }
+      .split { grid-template-columns: 1fr; gap: 32px; }
+      .hero { padding: 72px 0 56px; }
+      section { padding: 64px 0; }
+      .quote { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="GeraiPi Indonesia">
+        <span class="mark">π</span>
+        <span>GeraiPi</span>
+      </a>
+      <nav aria-label="Navigasi utama">
+        <a href="#tentang">Tentang</a>
+        <a href="#keunggulan">Keunggulan</a>
+        <a href="#cara">Cara kerja</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <div class="hero wrap">
+      <span class="eyebrow"><span class="dot"></span> Marketplace P2App Indonesia</span>
+      <h1>Belanja dan berdagang dengan <em>Pi Coin</em>.</h1>
+      <p class="lead">GeraiPi Indonesia menghubungkan komunitas Pioneer dengan jual beli yang nyata. Bayar dengan Pi Coin atau rupiah, dengan kepercayaan sebagai dasarnya.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://geraipi.id" rel="noopener">Kunjungi GeraiPi</a>
+        <a class="btn btn-ghost" href="#cara">Lihat cara kerja</a>
+      </div>
+    </div>
+
+    <section id="tentang">
+      <div class="wrap reveal">
+        <span class="label">Tentang</span>
+        <h2>Jembatan transaksi digital.</h2>
+        <p class="sub">GeraiPi adalah salah satu marketplace di ekosistem P2App. Kami ingin menjadi jembatan yang mengubah Pi Coin menjadi alat transaksi sehari-hari, dengan jalur pembayaran rupiah bagi yang membutuhkannya.</p>
+      </div>
+    </section>
+
+    <section id="keunggulan">
+      <div class="wrap reveal">
+        <span class="label">Keunggulan</span>
+        <h2>Dibangun untuk kepercayaan.</h2>
+        <p class="sub">Setiap fitur kami dirancang agar pembeli dan penjual merasa aman, dan agar setiap transaksi bisa dipertanggungjawabkan.</p>
+
+        <div class="grid">
+          <article class="card">
+            <div class="icon" aria-hidden="true">π</div>
+            <h3>Pi Coin sebagai alat bayar</h3>
+            <p>Belanja dan jual produk memakai Pi Coin, mata uang komunitas Pioneer Indonesia.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">₨</div>
+            <h3>Pembayaran rupiah</h3>
+            <p>Jalur fiat tersedia bagi pembeli yang lebih nyaman membayar dalam rupiah.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">✓</div>
+            <h3>Riwayat yang transparan</h3>
+            <p>Setiap mutasi saldo tercatat, dan laporan per bulan bisa diunduh kapan saja untuk ditelusuri.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cara">
+      <div class="wrap split reveal">
+        <div>
+          <span class="label">Cara kerja</span>
+          <h2>Mulai dalam tiga langkah.</h2>
+          <p class="sub">Tidak perlu alat khusus. Cukup buka GeraiPi di Pi Browser atau peramban biasa.</p>
+        </div>
+        <ol class="steps">
+          <li><div><strong>Masuk</strong><span>Masuk dengan akun Pi atau Google.</span></div></li>
+          <li><div><strong>Pilih produk</strong><span>Jelajahi katalog dan pilih barang atau jasa yang Anda butuhkan.</span></div></li>
+          <li><div><strong>Bayar dan terima</strong><span>Bayar dengan Pi Coin atau rupiah, lalu pantau statusnya dari halaman pesanan.</span></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap reveal">
+        <div class="quote">
+          <p>Kepercayaan adalah mata uang yang paling kami jaga.</p>
+          <small>GeraiPi Indonesia</small>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <span>© GeraiPi Indonesia. Bagian dari ekosistem P2App.</span>
+      <span><a href="https://geraipi.id">geraipi.id</a> · <a href="https://github.com/geraipi">GitHub</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal sections as they scroll into view. Without JavaScript the content
+    // is visible anyway, because .reveal only hides it once this script runs.
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      document.documentElement.classList.add('js');
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      }, { threshold: 0.12 });
+      items.forEach((el) => io.observe(el));
+    } else {
+      items.forEach((el) => el.classList.add('in'));
+    }
+  </script>
+</body>
+</html>
